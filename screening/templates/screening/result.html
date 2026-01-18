@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screening Results</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .score-badge {
+            font-size: 2rem;
+            padding: 1rem 2rem;
+        }
+
+        .skill-badge {
+            margin: 0.25rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                <a href="{% url 'analyze' %}" class="btn btn-secondary mb-3">← New Analysis</a>
+
+                <!-- Match Score Card -->
+                <div class="card shadow mb-4">
+                    <div class="card-header bg-success text-white">
+                        <h4 class="mb-0">Match Score</h4>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="score-badge badge bg-primary">
+                            {{ score }}%
+                        </div>
+                        <p class="mt-3 text-muted">{{ matched_skills|length }} out of {{ jd_skills|length }} required
+                            skills matched</p>
+                    </div>
+                </div>
+
+                <!-- Candidate Information -->
+                <div class="card shadow mb-4">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0">Candidate Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Email:</strong> {{ resume.email|default:"Not found" }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Phone:</strong> {{ resume.phone|default:"Not found" }}</p>
+                            </div>
+                        </div>
+                        <p><strong>Resume Uploaded:</strong> {{ resume.created_at|date:"d M Y, g:i A" }}</p>
+                    </div>
+                </div>
+
+                <!-- Skills Comparison -->
+                <div class="row">
+                    <!-- Job Requirements -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card shadow h-100">
+                            <div class="card-header bg-warning text-dark">
+                                <h5 class="mb-0">Required Skills ({{ jd_skills|length }})</h5>
+                            </div>
+                            <div class="card-body">
+                                {% if jd_skills %}
+                                {% for skill in jd_skills %}
+                                <span class="badge bg-secondary skill-badge">{{ skill }}</span>
+                                {% endfor %}
+                                {% else %}
+                                <p class="text-muted">No skills extracted from job description</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Resume Skills -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card shadow h-100">
+                            <div class="card-header bg-info text-white">
+                                <h5 class="mb-0">Resume Skills ({{ resume_skills|length }})</h5>
+                            </div>
+                            <div class="card-body">
+                                {% if resume_skills %}
+                                {% for skill in resume_skills %}
+                                {% if skill in matched_skills %}
+                                <span class="badge bg-success skill-badge">{{ skill }} ✓</span>
+                                {% else %}
+                                <span class="badge bg-light text-dark skill-badge">{{ skill }}</span>
+                                {% endif %}
+                                {% endfor %}
+                                {% else %}
+                                <p class="text-muted">No skills extracted from resume</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Matched Skills -->
+                <div class="card shadow mb-4">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">Matched Skills ({{ matched_skills|length }})</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if matched_skills %}
+                        {% for skill in matched_skills %}
+                        <span class="badge bg-success skill-badge">{{ skill }} ✓</span>
+                        {% endfor %}
+                        {% else %}
+                        <p class="text-muted">No matching skills found</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Extracted Resume Text Preview -->
+                <div class="card shadow mb-4">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="mb-0">Extracted Resume Text Preview</h5>
+                    </div>
+                    <div class="card-body">
+                        <pre class="bg-light p-3"
+                            style="max-height: 300px; overflow-y: auto; white-space: pre-wrap;">{{ extracted_text_preview }}</pre>
+                    </div>
+                </div>
+
+                <!-- Job Description -->
+                <div class="card shadow mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Job Description: {{ job.job_title }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <pre class="bg-light p-3"
+                            style="max-height: 300px; overflow-y: auto; white-space: pre-wrap;">{{ job.description }}</pre>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
