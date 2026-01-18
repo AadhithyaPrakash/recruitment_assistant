@@ -296,23 +296,6 @@ Responsibilities:
 - Machine learning-based matching (beyond keyword)
 - Integration with ATS platforms
 
-## Academic Context
-
-**Project Type:** Final Year B.Tech Project (AI/DS)
-
-**Institution:** Saranathan College of Engineering
-
-**Review Modules:**
-1. Resume Upload & Parsing Module
-2. Resume Screening & Skill Matching Module
-
-**Documentation:**
-- Abstract
-- Problem Statement
-- Objectives
-- Module-wise Description
-- SRS Document
-
 ## Contributing
 
 This is an academic project. For collaboration:
@@ -337,7 +320,6 @@ Educational use only. Not licensed for commercial deployment.
 
 - Saranathan College of Engineering, Department of AI & Data Science
 - Project Guide and Faculty Reviewers
-- Intellect Design Arena Ltd for internship support
 
 ---
 
