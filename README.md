@@ -1,6 +1,6 @@
 # AI-Powered Recruitment Assistant
 
-Django-based web application for automated resume screening and skill matching. Built as a final-year B.Tech AI/DS project at Saranathan College of Engineering.
+Django-based web application for automated resume screening and skill matching. Built as a final-year B.Tech CSBS project at Saranathan College of Engineering.
 
 ## Overview
 
